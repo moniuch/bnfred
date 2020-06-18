@@ -17,6 +17,6 @@ export class RedditService {
   }
 
   private getSubredditUrl(subreddit: string): string {
-    return `${REDDIT_BASE_URL}/${subreddit}`;
+    return `${REDDIT_BASE_URL}/${subreddit}.json`;
   }
 }

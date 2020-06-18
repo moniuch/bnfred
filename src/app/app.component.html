@@ -1,8 +1,10 @@
 <nav>
   <ul>
-    <li><a routerLink="/">Home</a></li>
-    <li><a routerLink="/reddit">Reddit</a></li>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Home</a></li>
+    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/reddit">Reddit</a></li>
   </ul>
 </nav>
 
-<router-outlet></router-outlet>
+<main>
+  <router-outlet></router-outlet>
+</main>

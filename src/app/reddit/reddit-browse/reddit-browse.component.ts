@@ -13,7 +13,7 @@ export class RedditBrowseComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.redditService.getSubredditPosts('angular').subscribe(console.log);
+    this.redditService.getSubredditPosts('sweden').subscribe(console.log);
   }
 
 }

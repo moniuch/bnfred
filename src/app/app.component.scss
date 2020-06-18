@@ -1,0 +1,43 @@
+nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  border-bottom: 1px #eee solid;
+
+  ul, li {
+    list-style: none;
+  }
+
+  ul {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    padding: 1em;
+
+    &.active {
+      background-color: black;
+      color: white;
+    }
+  }
+
+  a {
+    color: inherit;
+
+    &:link, &:visited {
+      text-decoration: none;
+    }
+
+    &:hover, &:active {
+      text-decoration: underline;
+    }
+  }
+}
+
+main {
+  margin-top: 70px;
+}
