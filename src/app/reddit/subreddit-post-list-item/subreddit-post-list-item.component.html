@@ -1,0 +1,12 @@
+<a [routerLink]="[subreddit, post?.id]">
+  <h4>{{post?.title}}</h4>
+</a>
+<div>
+  <p>{{ post?.author }}</p>
+  <img [src]="post?.thumbnail" alt="">
+  <strong>{{post?.author}} ({{post?.score}})</strong>
+  <small>{{ post?.num_comments }} ({{ post?.created * 1000 | date: 'y/MM/dd hh:mm' }})</small>
+  <small>{{post?.permalink}}</small>
+</div>
+
+<pre>{{post | json}}</pre>
