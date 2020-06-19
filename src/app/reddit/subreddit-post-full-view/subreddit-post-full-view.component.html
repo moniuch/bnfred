@@ -1,11 +1,12 @@
-<p>subreddit-post-full-view works!</p>
+<section *ngIf="postWithComments$ | async as pwc">
+  <h3>{{pwc.post.title}}</h3>
+  <section>
+    <h4>{{ pwc.post.author}}</h4>
+    <div>{{pwc.post.selftext}}</div>
+  </section>
 
-<ng-container *ngIf="postWithComments$ | async as pwc">
-  <h5>Post</h5>
-  <pre>{{ pwc.post | json }}</pre>
-  <h5>Comments</h5>
-  <div *ngFor="let c of pwc.comments">
-    {{c | json}}
-  </div>
-</ng-container>
+  <section>
+    <app-comment-list [comments]="pwc.comments"></app-comment-list>
+  </section>
+</section>
 

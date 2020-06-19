@@ -17,7 +17,7 @@ export interface RedditSubredditPostsResponse extends RedditResponse<RedditSubre
 
 export interface RedditSubredditPostWithComments {
   post: RedditSubredditPost;
-  comments: any;
+  comments: RedditComment[];
 }
 
 export interface RedditSubredditPost {
@@ -34,5 +34,9 @@ export interface RedditSubredditPost {
 }
 
 export interface RedditSubredditPostResponse extends RedditResponse<RedditSubredditPost> {
+
+}
+
+export interface RedditComment {
 
 }

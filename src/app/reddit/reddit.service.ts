@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { RedditSubredditPostsResponse, RedditSubredditPostWithComments } from './models';
+import { unwrapPostAndComments } from './utils';
 
 const REDDIT_BASE_URL = 'https://www.reddit.com/r';
 
@@ -24,12 +24,7 @@ export class RedditService {
     const url = this.getFullPostWithCommentsUrl(subreddit, name);
 
     return this.http.get(url).pipe(
-      map(([postResponse, commentsResponse]) => {
-        const post = postResponse.data.children[0].data;
-        const comments = commentsResponse.data.children.map(({ data }) => data);
-
-        return { post, comments };
-      }),
+      unwrapPostAndComments(),
     ) as Observable<RedditSubredditPostWithComments>;
   }
 
@@ -41,3 +36,4 @@ export class RedditService {
     return `${REDDIT_BASE_URL}/${subreddit}.json`;
   }
 }
+
