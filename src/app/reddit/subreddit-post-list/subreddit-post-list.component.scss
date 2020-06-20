@@ -1,4 +1,7 @@
 app-subreddit-post-list-item {
   display: flex;
-  border-bottom: 1px #eee solid;
+  margin: 0.5em 0;
+  padding: 1em;
+  //border-bottom: 1px #eee solid;
+  box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
 }

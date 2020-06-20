@@ -1,7 +1,37 @@
+$thumb_size: 80px;
+:host {
+  display: flex;
+  padding: 1em;
+}
+
 img {
-  width: 150px;
-  height: 150px;
+  width: $thumb_size;
+  height: $thumb_size;
   object-fit: contain;
   background-color: aliceblue;
   border: 0 none;
+  overflow: hidden;
+  display: block;
+  margin-right: 1em;
 }
+
+header {
+  margin: 0 0 0.5em;
+  font-size: smaller;
+  color: #666;
+}
+
+footer {
+  font-weight: bold;
+  color: #999;
+}
+
+.title {
+  font-weight: normal;
+  margin: 0.5em 0;
+}
+
+.author {
+  font-weight: bold;
+}
+

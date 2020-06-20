@@ -26,20 +26,5 @@ nav {
       color: white;
     }
   }
-
-  a {
-    color: inherit;
-
-    &:link, &:visited {
-      text-decoration: none;
-    }
-
-    &:hover, &:active {
-      text-decoration: underline;
-    }
-  }
 }
 
-main {
-  margin-top: 70px;
-}

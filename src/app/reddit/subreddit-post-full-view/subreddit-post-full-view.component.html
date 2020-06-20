@@ -1,12 +1,15 @@
-<section *ngIf="postWithComments$ | async as pwc">
-  <h3>{{pwc.post.title}}</h3>
-  <section>
-    <h4>{{ pwc.post.author}}</h4>
-    <div>{{pwc.post.selftext}}</div>
+<article *ngIf="postWithComments$ | async as pwc">
+  <header class="padded-h">
+    <h3>{{ pwc.post.title }}</h3>
+    <h4>{{ pwc.post.author }}</h4>
+  </header>
+
+  <section class="padded-h">
+    <div>{{ pwc.post.selftext }}</div>
   </section>
 
-  <section>
+  <section class="comments">
     <app-comment-list [comments]="pwc.comments"></app-comment-list>
   </section>
-</section>
+</article>
 

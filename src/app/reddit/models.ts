@@ -38,5 +38,7 @@ export interface RedditSubredditPostResponse extends RedditResponse<RedditSubred
 }
 
 export interface RedditComment {
-
+  body: string;
+  created: number;
+  author: string;
 }

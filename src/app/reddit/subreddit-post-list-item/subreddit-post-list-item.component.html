@@ -1,10 +1,17 @@
 <a [routerLink]="[subreddit, post?.id]">
-  <h4>{{post?.title}}</h4>
+  <img [src]="post?.thumbnail" [alt]="post?.title">
 </a>
-<div>
-  <p>{{ post?.author }}</p>
-  <img [src]="post?.thumbnail" alt="">
-  <strong>{{post?.author}} ({{post?.score}})</strong>
-  <small>{{ post?.num_comments }} ({{ post?.created | redditUnixDate }})</small>
-  <small>{{post?.permalink}}</small>
-</div>
+<article>
+  <header>
+    Posted by <span class="author">{{ post?.author }}</span> on {{ post?.created | redditUnixDate }}
+  </header>
+  <div>
+    <h4 class="title">{{post?.title}}</h4>
+  </div>
+  <footer>
+    <small>
+      <span class="score">{{post.score}}</span> &middot; {{ post?.num_comments }} comment(s) &middot;
+      <a class="permalink" [href]="'https://reddit.com' + post?.permalink" target="_blank">Permalink</a>
+    </small>
+  </footer>
+</article>
