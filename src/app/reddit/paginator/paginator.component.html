@@ -1,7 +1,14 @@
-<form [formGroup]="form">
+<section [formGroup]="form">
+  <span>
   Retrieve
   <select formControlName="pageSize">
     <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
   </select>
   posts
-</form>
+  </span>
+
+  <span>
+    <button type="button" (click)="prev.emit()">Prev (newer)</button>
+    <button type="button" (click)="next.emit()">Next (older)</button>
+  </span>
+</section>

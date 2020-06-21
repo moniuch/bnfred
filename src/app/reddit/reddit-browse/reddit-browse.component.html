@@ -1,8 +1,8 @@
-<header class="padded-h padded-v">
+<div class="padded-h">
+  <code>{{beforeAfter$ | async | json}}</code>
+</div>
 
-  {{beforeAfter$ | async | json}}
-  <button type="button" #prev>Prev</button>
-  <button type="button" #next>Next</button>
+<header class="padded-h padded-v">
   <app-paginator #paginator [pageSizes]="pageSizes"></app-paginator>
 </header>
 

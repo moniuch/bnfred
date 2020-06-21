@@ -8,7 +8,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class PaginatorComponent implements OnInit {
   @Input() pageSizes: number[] = [];
-  @Output() sizeChanged = new EventEmitter<number>();
+  @Output() prev = new EventEmitter<void>();
+  @Output() next = new EventEmitter<void>();
+
   form: FormGroup;
 
   constructor(

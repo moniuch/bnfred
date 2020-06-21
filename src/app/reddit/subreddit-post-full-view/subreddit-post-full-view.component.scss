@@ -2,6 +2,11 @@ header {
   border-bottom: 1px #eee solid;
 }
 .comments {
-
   background-color: #f9f9f9;
+}
+.preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 6em;
 }

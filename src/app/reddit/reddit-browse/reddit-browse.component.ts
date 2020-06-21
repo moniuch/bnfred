@@ -1,8 +1,9 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, combineLatest, fromEvent, merge, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, merge, Observable, of } from 'rxjs';
 import { debounceTime, map, mapTo, share, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { RedditSubredditPost } from '../models';
 import { RedditService } from '../reddit.service';
+import { unwrapPostsFromResponse } from '../utils';
 
 @Component({
   selector: 'app-reddit-browse',
@@ -16,8 +17,6 @@ export class RedditBrowseComponent implements OnInit, AfterViewInit {
   beforeAfter$: BehaviorSubject<{ before: string | null, after: string | null }>;
 
   @ViewChild('paginator') paginator;
-  @ViewChild('prev') prevBtn;
-  @ViewChild('next') nextBtn;
 
   constructor(
     private readonly redditService: RedditService,
@@ -34,21 +33,21 @@ export class RedditBrowseComponent implements OnInit, AfterViewInit {
 
   initList() {
     this.paginator.form.patchValue({
-      pageSize: 25,
+      pageSize: 5,
     });
 
     const prevNextClicks$ = merge(
-      fromEvent(this.prevBtn.nativeElement, 'click').pipe(mapTo(-1)),
-      fromEvent(this.nextBtn.nativeElement, 'click').pipe(mapTo(1)),
+      this.paginator.next.pipe(mapTo(1)),
+      this.paginator.prev.pipe(mapTo(-1)),
     ).pipe(
       withLatestFrom(this.beforeAfter$),
-      map(([direction, { before, after }]) => {
-        console.log(direction)
-        return direction < 0
-          ? { before, after: null }
-          : { before: null, after };
+      map(([direction, beforeAfter]) => {
+        if (!!beforeAfter) {
+          const { before, after } = beforeAfter;
+          return direction < 0 ? { after: before } : { after: after };
+        }
       }),
-      startWith(0),
+      startWith(null),
     );
 
     const listResponse$ = combineLatest([
@@ -57,15 +56,18 @@ export class RedditBrowseComponent implements OnInit, AfterViewInit {
       prevNextClicks$,
     ]).pipe(
       debounceTime(500),
-      withLatestFrom(this.beforeAfter$),
-      map(([[subreddit, { pageSize }], beforeAfter]) => ({ subreddit, params: { limit: pageSize, ...beforeAfter } })),
+      map(([subreddit, { pageSize }, beforeAfter]) => {
+        return beforeAfter
+          ? { subreddit, params: { limit: pageSize, count: pageSize, ...beforeAfter } }
+          : { subreddit, params: { limit: pageSize } };
+      }),
       switchMap(({ subreddit, params }) => this.redditService.getSubredditPosts(subreddit, params)),
       tap(({ data: { before, after } }) => this.beforeAfter$.next({ before, after })),
       share(),
     );
 
     this.currentList$ = listResponse$.pipe(
-      map(({ data }) => (data.children || []).map(post => post.data)),
+      unwrapPostsFromResponse(),
     );
   }
 }

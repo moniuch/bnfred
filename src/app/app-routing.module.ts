@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: 'reddit', loadChildren: () => import('./reddit/reddit.module').then(m => m.RedditModule) },
-
 ];
 
 @NgModule({
