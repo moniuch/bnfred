@@ -1,5 +1,5 @@
 <div class="thumb">
-  <a [routerLink]="[subreddit, post?.id]" *ngIf="post?.thumbnail !== 'self'">
+  <a [routerLink]="[subreddit, post?.id]" *ngIf="hasThumbnail">
     <img [src]="post?.thumbnail" [alt]="post?.title">
   </a>
 </div>

@@ -9,4 +9,8 @@ import { RedditSubredditPost } from '../models';
 export class SubredditPostListItemComponent {
   @Input() post: RedditSubredditPost;
   @Input() subreddit: string;
+
+  get hasThumbnail(): boolean {
+    return !!this.post && !['self', 'default'].includes(this.post.thumbnail)
+  }
 }
