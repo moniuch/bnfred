@@ -1,0 +1,5 @@
+<div [formGroup]="form">
+  Subreddit: <select formControlName="subreddit">
+    <option *ngFor="let sub of subreddits" [value]="sub">{{ sub }}</option>
+  </select>
+</div>

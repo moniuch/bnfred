@@ -10,6 +10,7 @@ import { RedditUnixDatePipe } from './reddit-unix-date.pipe';
 import { SubredditPostFullViewComponent } from './subreddit-post-full-view/subreddit-post-full-view.component';
 import { SubredditPostListItemComponent } from './subreddit-post-list-item/subreddit-post-list-item.component';
 import { SubredditPostListComponent } from './subreddit-post-list/subreddit-post-list.component';
+import { SubredditSelectorComponent } from './subreddit-selector/subreddit-selector.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SubredditPostListComponent } from './subreddit-post-list/subreddit-post
     CommentListItemComponent,
     RedditUnixDatePipe,
     PaginatorComponent,
+    SubredditSelectorComponent,
   ],
   imports: [
     CommonModule,

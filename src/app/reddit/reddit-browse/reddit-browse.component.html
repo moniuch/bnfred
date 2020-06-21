@@ -1,8 +1,8 @@
 <div class="padded-h">
   <code>{{beforeAfter$ | async | json}}</code>
 </div>
-
 <header class="padded-h padded-v">
+  <app-subreddit-selector #subredditselect [subreddits]="subreddits"></app-subreddit-selector>
   <app-paginator #paginator [pageSizes]="pageSizes"></app-paginator>
 </header>
 

@@ -12,6 +12,7 @@ img, .thumb {
   border: 0 none;
   display: block;
   margin-right: 1em;
+  flex: 0 0 $thumb_size;
 }
 
 header {

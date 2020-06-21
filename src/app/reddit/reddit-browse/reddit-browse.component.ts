@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { BehaviorSubject, combineLatest, merge, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, merge, Observable } from 'rxjs';
 import { debounceTime, map, mapTo, share, startWith, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { RedditSubredditPost } from '../models';
 import { RedditService } from '../reddit.service';
@@ -13,17 +13,19 @@ import { unwrapPostsFromResponse } from '../utils';
 export class RedditBrowseComponent implements OnInit, AfterViewInit {
   currentList$: Observable<RedditSubredditPost[]>;
   currentSubreddit$: Observable<string>;
-  pageSizes = [5, 10, 25];
   beforeAfter$: BehaviorSubject<{ before: string | null, after: string | null }>;
+  pageSizes = [5, 10, 25];
+  subreddits = ['redditdev', 'sweden', 'angular2', 'typescript', 'webdev'];
 
   @ViewChild('paginator') paginator;
+  @ViewChild('subredditselect') subredditselect;
+
 
   constructor(
     private readonly redditService: RedditService,
   ) {}
 
   ngOnInit() {
-    this.currentSubreddit$ = of('sweden');
     this.beforeAfter$ = new BehaviorSubject({ before: null, after: null });
   }
 
@@ -32,10 +34,29 @@ export class RedditBrowseComponent implements OnInit, AfterViewInit {
   }
 
   initList() {
-    this.paginator.form.patchValue({
-      pageSize: 5,
-    });
+    const DEFAULT_PAGINATOR_STATE = {
+      pageSize: this.pageSizes[1],
+    };
 
+    const DEFAULT_SUBREDDIT_SELECTOR_STATE = {
+      subreddit: this.subreddits[0],
+    };
+
+    this.subredditselect.form.patchValue(DEFAULT_SUBREDDIT_SELECTOR_STATE, { emitEvent: false });
+    this.paginator.form.patchValue(DEFAULT_PAGINATOR_STATE, { emitEvent: false });
+
+    const subredditChanges$ = this.subredditselect.form.valueChanges.pipe(
+      share(),
+      startWith(DEFAULT_SUBREDDIT_SELECTOR_STATE),
+    );
+
+    const paginatorChanges$ = this.paginator.form.valueChanges.pipe(
+      share(),
+      startWith(DEFAULT_PAGINATOR_STATE),
+    );
+
+
+    // connect pagination
     const prevNextClicks$ = merge(
       this.paginator.next.pipe(mapTo(1)),
       this.paginator.prev.pipe(mapTo(-1)),
@@ -50,13 +71,14 @@ export class RedditBrowseComponent implements OnInit, AfterViewInit {
       startWith(null),
     );
 
+    // prepare listing query
     const listResponse$ = combineLatest([
-      this.currentSubreddit$,
-      this.paginator.form.valueChanges.pipe(startWith(this.paginator.form.value)),
+      subredditChanges$,
+      paginatorChanges$,
       prevNextClicks$,
     ]).pipe(
       debounceTime(500),
-      map(([subreddit, { pageSize }, beforeAfter]) => {
+      map(([{ subreddit }, { pageSize }, beforeAfter]) => {
         return beforeAfter
           ? { subreddit, params: { limit: pageSize, count: pageSize, ...beforeAfter } }
           : { subreddit, params: { limit: pageSize } };
@@ -66,8 +88,16 @@ export class RedditBrowseComponent implements OnInit, AfterViewInit {
       share(),
     );
 
-    this.currentList$ = listResponse$.pipe(
-      unwrapPostsFromResponse(),
-    );
+    // ...mitigation the ...AfterItHasBeenChecked errors caused by assignments done in AfterViewInit
+    setTimeout(() => {
+      this.currentSubreddit$ = subredditChanges$.pipe(
+        map(({ subreddit }) => subreddit),
+      );
+
+      this.currentList$ = listResponse$.pipe(
+        unwrapPostsFromResponse(),
+      );
+    });
+
   }
 }

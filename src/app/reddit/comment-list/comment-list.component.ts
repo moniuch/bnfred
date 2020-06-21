@@ -1,17 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RedditComment } from '../models';
 
 @Component({
   selector: 'app-comment-list',
   templateUrl: './comment-list.component.html',
   styleUrls: ['./comment-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommentListComponent implements OnInit {
+export class CommentListComponent {
   @Input() comments: RedditComment[];
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }
