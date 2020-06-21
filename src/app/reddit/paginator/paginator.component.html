@@ -1,0 +1,7 @@
+<form [formGroup]="form">
+  Retrieve
+  <select formControlName="pageSize">
+    <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+  </select>
+  posts
+</form>

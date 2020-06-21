@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommentListItemComponent } from './comment-list-item/comment-list-item.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
+import { PaginatorComponent } from './paginator/paginator.component';
 import { RedditBrowseComponent } from './reddit-browse/reddit-browse.component';
 import { RedditRoutingModule } from './reddit-routing.module';
 import { RedditUnixDatePipe } from './reddit-unix-date.pipe';
@@ -18,10 +20,12 @@ import { SubredditPostListComponent } from './subreddit-post-list/subreddit-post
     CommentListComponent,
     CommentListItemComponent,
     RedditUnixDatePipe,
+    PaginatorComponent,
   ],
   imports: [
     CommonModule,
     RedditRoutingModule,
+    ReactiveFormsModule,
   ],
 })
 export class RedditModule {}

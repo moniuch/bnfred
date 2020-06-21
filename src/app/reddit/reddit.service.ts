@@ -14,10 +14,10 @@ export class RedditService {
     private readonly http: HttpClient,
   ) {}
 
-  public getSubredditPosts(subreddit: string): Observable<RedditSubredditPostsResponse> {
-    console.log('getting', subreddit);
-    const url = this.getSubredditUrl(subreddit)
-    return this.http.get(url) as Observable<RedditSubredditPostsResponse>;
+  public getSubredditPosts(subreddit: string, limit: number): Observable<RedditSubredditPostsResponse> {
+    console.log('getting', subreddit, limit);
+    const url = this.getSubredditUrl(subreddit);
+    return this.http.get(url, { params: { limit: `${limit}` } }) as Observable<RedditSubredditPostsResponse>;
   }
 
   public getFullPost(subreddit: string, name: string): Observable<RedditSubredditPostWithComments> {
