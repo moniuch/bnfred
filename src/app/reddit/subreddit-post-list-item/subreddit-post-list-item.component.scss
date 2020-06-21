@@ -4,7 +4,7 @@ $thumb_size: 80px;
   padding: 1em;
 }
 
-img {
+img, .thumb {
   width: $thumb_size;
   height: $thumb_size;
   object-fit: contain;

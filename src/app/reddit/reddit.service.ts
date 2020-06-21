@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RedditSubredditPostsResponse, RedditSubredditPostWithComments } from './models';
+import { RedditListingQueryParams, RedditSubredditPostsResponse, RedditSubredditPostWithComments } from './models';
 import { unwrapPostAndComments } from './utils';
 
 const REDDIT_BASE_URL = 'https://www.reddit.com/r';
@@ -14,10 +14,14 @@ export class RedditService {
     private readonly http: HttpClient,
   ) {}
 
-  public getSubredditPosts(subreddit: string, limit: number): Observable<RedditSubredditPostsResponse> {
-    console.log('getting', subreddit, limit);
+  public getSubredditPosts(
+    subreddit: string, listingQueryParams: RedditListingQueryParams): Observable<RedditSubredditPostsResponse> {
+    const { before, after, limit } = listingQueryParams;
+    const params = { limit: `${limit}`, before, after };
+    console.log('getting', subreddit, before, after, limit);
+
     const url = this.getSubredditUrl(subreddit);
-    return this.http.get(url, { params: { limit: `${limit}` } }) as Observable<RedditSubredditPostsResponse>;
+    return this.http.get(url, { params }) as Observable<RedditSubredditPostsResponse>;
   }
 
   public getFullPost(subreddit: string, name: string): Observable<RedditSubredditPostWithComments> {

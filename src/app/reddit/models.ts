@@ -11,9 +11,7 @@ export interface RedditSubredditPosts {
   dist: number;
 }
 
-export interface RedditSubredditPostsResponse extends RedditResponse<RedditSubredditPosts> {
-
-}
+export interface RedditSubredditPostsResponse extends RedditResponse<RedditSubredditPosts> {}
 
 export interface RedditSubredditPostWithComments {
   post: RedditSubredditPost;
@@ -33,12 +31,16 @@ export interface RedditSubredditPost {
   id: string;
 }
 
-export interface RedditSubredditPostResponse extends RedditResponse<RedditSubredditPost> {
-
-}
+export interface RedditSubredditPostResponse extends RedditResponse<RedditSubredditPost> {}
 
 export interface RedditComment {
   body: string;
   created: number;
   author: string;
+}
+
+export interface RedditListingQueryParams {
+  limit?: number;
+  before: string | null;
+  after: string | null;
 }

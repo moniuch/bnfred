@@ -1,3 +1,12 @@
-{{beforeAfter$ | async | json}}
-<app-paginator #paginator [pageSizes]="pageSizes"></app-paginator>
-<app-subreddit-post-list [posts]="currentList$ | async" [subreddit]="currentSubreddit$ | async"></app-subreddit-post-list>
+<header class="padded-h padded-v">
+
+  {{beforeAfter$ | async | json}}
+  <button type="button" #prev>Prev</button>
+  <button type="button" #next>Next</button>
+  <app-paginator #paginator [pageSizes]="pageSizes"></app-paginator>
+</header>
+
+<app-subreddit-post-list
+  [posts]="currentList$ | async"
+  [subreddit]="currentSubreddit$ | async"
+></app-subreddit-post-list>
