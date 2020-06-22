@@ -42,6 +42,6 @@ export interface RedditComment {
 export interface RedditListingQueryParams {
   count?: number;
   limit?: number;
-  before: string | null;
-  after: string | null;
+  before?: string | null;
+  after?: string | null;
 }

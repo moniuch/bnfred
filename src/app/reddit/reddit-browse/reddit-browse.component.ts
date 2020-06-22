@@ -23,7 +23,7 @@ export class RedditBrowseComponent implements OnInit, AfterViewInit {
 
   constructor(
     private readonly redditService: RedditService,
-  ) {}
+  ) {}a
 
   ngOnInit() {
     this.beforeAfter$ = new BehaviorSubject({ before: null, after: null });
@@ -39,25 +39,27 @@ export class RedditBrowseComponent implements OnInit, AfterViewInit {
     };
 
     const DEFAULT_SUBREDDIT_SELECTOR_STATE = {
-      subreddit: this.subreddits[0],
+      subreddit: this.subreddits[1],
     };
 
     this.subredditselect.form.patchValue(DEFAULT_SUBREDDIT_SELECTOR_STATE, { emitEvent: false });
     this.paginator.form.patchValue(DEFAULT_PAGINATOR_STATE, { emitEvent: false });
 
-    const subredditChanges$ = this.subredditselect.form.valueChanges.pipe(
+    const subredditChanges$: Observable<any> = this.subredditselect.form.valueChanges.pipe(
       share(),
       startWith(DEFAULT_SUBREDDIT_SELECTOR_STATE),
     );
 
-    const paginatorChanges$ = this.paginator.form.valueChanges.pipe(
+    const paginatorChanges$: Observable<any> = this.paginator.form.valueChanges.pipe(
       share(),
       startWith(DEFAULT_PAGINATOR_STATE),
     );
 
-
+    /**
+     * DOES NOT OWRK AS EXPECTED :(
+     */
     // connect pagination
-    const prevNextClicks$ = merge(
+    const prevNextClicks$: Observable<{ after: string }> = merge(
       this.paginator.next.pipe(mapTo(1)),
       this.paginator.prev.pipe(mapTo(-1)),
     ).pipe(
@@ -88,7 +90,7 @@ export class RedditBrowseComponent implements OnInit, AfterViewInit {
       share(),
     );
 
-    // ...mitigation the ...AfterItHasBeenChecked errors caused by assignments done in AfterViewInit
+    // setTimeout = mitigating the ...AfterItHasBeenChecked errors caused by assignments done in AfterViewInit
     setTimeout(() => {
       this.currentSubreddit$ = subredditChanges$.pipe(
         map(({ subreddit }) => subreddit),
