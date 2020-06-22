@@ -6,17 +6,19 @@
 
 <article>
   <header>
-    Posted by <span class="author">{{ post?.author }}</span> on {{ post?.created | redditUnixDate }} [{{post?.name}}]
+    Posted by <span class="author">{{ post?.author }}</span> on {{ post?.created | redditUnixDate }}
+    <span class="tag is-light">{{post?.name}}</span>
   </header>
   <div>
 
-    <h4 class="title">
+    <h4 class="title is-5">
       <a [routerLink]="[subreddit, post?.id]">{{post?.title}}</a>
     </h4>
   </div>
   <footer>
     <small>
-      <span class="score">{{post.score}}</span> &middot; {{ post?.num_comments }} comment(s) &middot;
+      <span class="tag is-light score is-rounded">{{post.score}}</span>
+      <a [routerLink]="[subreddit, post?.id]">{{ post?.num_comments }} comment(s)</a> &middot;
       <a class="permalink" [href]="'https://reddit.com' + post?.permalink" target="_blank">Permalink</a>
     </small>
   </footer>

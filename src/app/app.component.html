@@ -1,8 +1,10 @@
-<nav>
-  <ul>
-    <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Home</a></li>
-    <li routerLinkActive="active"><a routerLink="/reddit">Reddit</a></li>
-  </ul>
+<nav class="navbar is-fixed-top">
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <a routerLinkActive="active" class="navbar-item" routerLink="/" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a routerLinkActive="active" class="navbar-item" routerLink="/reddit">Reddit</a>
+    </div>
+  </div>
 </nav>
 
 <main>

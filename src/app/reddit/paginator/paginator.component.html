@@ -1,14 +1,31 @@
 <section [formGroup]="form">
-  <span>
-  Retrieve
-  <select formControlName="pageSize">
-    <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
-  </select>
-  posts
-  </span>
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Per&nbsp;page:</label>
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <div class="select">
+          <p class="control">
+            <select formControlName="pageSize">
+              <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+            </select>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <span>
-    <button type="button" (click)="prev.emit()">Prev (newer)</button>
-    <button type="button" (click)="next.emit()">Next (older)</button>
-  </span>
+  <div class="field is-grouped is-grouped-right">
+    <p class="control">
+      <button class="button is-primary" (click)="prev.emit()">
+        Prev (newer)
+      </button>
+    </p>
+    <p class="control">
+      <button class="button is-light" (click)="next.emit()">
+        Next (older)
+      </button>
+    </p>
+  </div>
 </section>

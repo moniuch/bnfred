@@ -1,13 +1,13 @@
 <article *ngIf="postWithComments$ | async as pwc">
-  <header class="padded-h">
-    <h3>{{ pwc.post.title }}</h3>
-    <h4>{{ pwc.post.author }}</h4>
+  <header class="px-4">
+    <h3 class="title is-3">{{ pwc.post.title }}</h3>
+    <h4 class="subtitle  is-5">by {{ pwc.post.author }}</h4>
   </header>
 
   <div class="preview">
     [ image here ]
   </div>
-  <section class="padded-h">
+  <section class="px-4">
     <div>{{ pwc.post.selftext }}</div>
   </section>
 
