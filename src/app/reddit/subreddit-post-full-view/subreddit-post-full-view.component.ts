@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { RedditSubredditPostWithComments } from '../models';
 import { RedditService } from '../reddit.service';
+import { unwrapPostAndCommentsFromResponse } from '../utils';
 
 @Component({
   selector: 'app-subreddit-post-full-view',
@@ -25,6 +26,7 @@ export class SubredditPostFullViewComponent implements OnInit {
   initPost() {
     this.postWithComments$ = this.route.paramMap.pipe(
       switchMap(params => this.redditService.getFullPost(params.get('subreddit'), params.get('name'))),
+      unwrapPostAndCommentsFromResponse(),
     );
   }
 }

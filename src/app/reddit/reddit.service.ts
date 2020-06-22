@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { RedditListingQueryParams, RedditSubredditPostsResponse, RedditSubredditPostWithComments } from './models';
-import { unwrapPostAndCommentsFromResponse } from './utils';
+import { RedditListingQueryParams, RedditSubredditPostsResponse } from './models';
 
 const REDDIT_BASE_URL = 'https://www.reddit.com/r';
 
@@ -19,7 +18,7 @@ export class RedditService {
     const { before, after, limit, count } = listingQueryParams;
     let params: any = { limit: `${limit}` };
 
-    if (typeof count != 'undefined') {
+    if (count) {
       params = { ...params, count };
     }
     if (before) {
@@ -28,18 +27,14 @@ export class RedditService {
     if (after) {
       params = { ...params, after };
     }
-    console.log('getting', subreddit, params);
 
     const url = this.getSubredditUrl(subreddit);
     return this.http.get(url, { params }) as Observable<RedditSubredditPostsResponse>;
   }
 
-  public getFullPost(subreddit: string, name: string): Observable<RedditSubredditPostWithComments> {
+  public getFullPost(subreddit: string, name: string): Observable<[any, any]> {
     const url = this.getFullPostWithCommentsUrl(subreddit, name);
-
-    return this.http.get(url).pipe(
-      unwrapPostAndCommentsFromResponse(),
-    ) as Observable<RedditSubredditPostWithComments>;
+    return this.http.get(url) as Observable<[any, any]>;
   }
 
   private getFullPostWithCommentsUrl(subreddit: string, name: string): string {
