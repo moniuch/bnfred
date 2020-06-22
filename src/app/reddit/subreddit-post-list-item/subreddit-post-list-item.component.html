@@ -17,7 +17,7 @@
   </div>
   <footer>
     <small>
-      <span class="tag is-light score is-rounded">{{post.score}}</span>
+      <span class="score tag is-info is-rounded">{{post.score}}</span>
       <a [routerLink]="[subreddit, post?.id]">{{ post?.num_comments }} comment(s)</a> &middot;
       <a class="permalink" [href]="'https://reddit.com' + post?.permalink" target="_blank">Permalink</a>
     </small>
