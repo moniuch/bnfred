@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RedditBrowseComponent } from './reddit-browse.component';
+import { RedditPageComponent } from './reddit-page.component';
 
 describe('RedditBrowseComponent', () => {
-  let component: RedditBrowseComponent;
-  let fixture: ComponentFixture<RedditBrowseComponent>;
+  let component: RedditPageComponent;
+  let fixture: ComponentFixture<RedditPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RedditBrowseComponent ]
+      declarations: [ RedditPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RedditBrowseComponent);
+    fixture = TestBed.createComponent(RedditPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

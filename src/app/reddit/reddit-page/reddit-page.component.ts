@@ -6,11 +6,11 @@ import { RedditService } from '../reddit.service';
 import { unwrapPostsFromResponse } from '../utils';
 
 @Component({
-  selector: 'app-reddit-browse',
-  templateUrl: './reddit-browse.component.html',
-  styleUrls: ['./reddit-browse.component.scss'],
+  selector: 'app-reddit-page',
+  templateUrl: './reddit-page.component.html',
+  styleUrls: ['./reddit-page.component.scss'],
 })
-export class RedditBrowseComponent implements OnInit, AfterViewInit {
+export class RedditPageComponent implements OnInit, AfterViewInit {
   currentList$: Observable<RedditSubredditPost[]>;
   currentSubreddit$: Observable<string>;
   beforeAfter$: BehaviorSubject<{ before: string | null, after: string | null }>;

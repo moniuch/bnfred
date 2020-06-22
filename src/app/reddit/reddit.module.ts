@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommentListItemComponent } from './comment-list-item/comment-list-item.component';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { PaginatorComponent } from './paginator/paginator.component';
-import { RedditBrowseComponent } from './reddit-browse/reddit-browse.component';
+import { RedditPageComponent } from './reddit-page/reddit-page.component';
 import { RedditRoutingModule } from './reddit-routing.module';
 import { RedditUnixDatePipe } from './reddit-unix-date.pipe';
 import { SubredditPostFullViewComponent } from './subreddit-post-full-view/subreddit-post-full-view.component';
@@ -14,7 +14,7 @@ import { SubredditSelectorComponent } from './subreddit-selector/subreddit-selec
 
 @NgModule({
   declarations: [
-    RedditBrowseComponent,
+    RedditPageComponent,
     SubredditPostListComponent,
     SubredditPostListItemComponent,
     SubredditPostFullViewComponent,
